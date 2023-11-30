@@ -74,17 +74,17 @@ https://beepboop.web.2023.sunshinectf.games
 8. Use burp to make a request to /post/608
 9. Flag will be displayed in the response:
 	
- 	HTTP/2 200 OK
-	Server: nginx/1.18.0 (Ubuntu)
-	Date: Sun, 08 Oct 2023 19:35:29 GMT
-	Content-Type: application/json
-	Content-Length: 66
+ 	HTTP/2 200 OK\
+	Server: nginx/1.18.0 (Ubuntu)\
+	Date: Sun, 08 Oct 2023 19:35:29 GMT\
+	Content-Type: application/json\
+	Content-Length: 66\
 
-	{
-	"hidden":true,
-	"post":"sun{wh00ps_4ll_IDOR}",
-	"user":"Robot #000"
-	}
+	{\
+	"hidden":true,\
+	"post":"sun{wh00ps_4ll_IDOR}",\
+	"user":"Robot #000"\
+	}\
 	
 	
 ## CRYPTO:
