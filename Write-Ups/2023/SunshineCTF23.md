@@ -66,8 +66,7 @@ https://beepboop.web.2023.sunshinectf.games
         		except ValueError:
             		    print(f"Post {post_id}: JSON response not found")
     		else:
-        	    print(f"Post {post_id}: Error - Status Code {response.status_code}")
-'''
+        	    print(f"Post {post_id}: Error - Status Code {response.status_code}")'''
  	    
 7. Watch the output to see "Post 608: hidden: True"
 8. Use burp to make a request to /post/608
