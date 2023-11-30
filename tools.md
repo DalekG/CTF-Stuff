@@ -2,4 +2,4 @@
 
 acropolyse.app\
 aperisolve\
-pycdc\
+pycdc
