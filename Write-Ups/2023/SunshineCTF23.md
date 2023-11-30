@@ -34,7 +34,7 @@ https://beepboop.web.2023.sunshinectf.games
 5. Copy all of the request header from burp
 6. Write a script that will run through a loop of the posts (there are 1024 total)
 	python has a requests library that will essentially act like curl
-	
+```python
 		import requests
 
 		requests.packages.urllib3.disable_warnings()
@@ -67,7 +67,8 @@ https://beepboop.web.2023.sunshinectf.games
             		    print(f"Post {post_id}: JSON response not found")
     		else:
         	    print(f"Post {post_id}: Error - Status Code {response.status_code}")
-        	    
+'''
+ 	    
 7. Watch the output to see "Post 608: hidden: True"
 8. Use burp to make a request to /post/608
 9. Flag will be displayed in the response:
