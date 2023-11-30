@@ -84,7 +84,7 @@ https://beepboop.web.2023.sunshinectf.games
 	"hidden":true, \
 	"post":"sun{wh00ps_4ll_IDOR}", \
 	"user":"Robot #000" \
-	} \
+	} 
 	
 	
 ## CRYPTO:
