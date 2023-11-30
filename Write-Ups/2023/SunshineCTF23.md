@@ -69,11 +69,12 @@ https://beepboop.web.2023.sunshinectf.games
     		else:
         	    print(f"Post {post_id}: Error - Status Code {response.status_code}")
 ```
-\    
+   
 7. Watch the output to see "Post 608: hidden: True"
 8. Use burp to make a request to /post/608
 9. Flag will be displayed in the response:
-	HTTP/2 200 OK
+	
+ 	HTTP/2 200 OK
 	Server: nginx/1.18.0 (Ubuntu)
 	Date: Sun, 08 Oct 2023 19:35:29 GMT
 	Content-Type: application/json
