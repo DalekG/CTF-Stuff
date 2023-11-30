@@ -1,5 +1,5 @@
 # Tools
 
-acropolyse.app
-aperisolve
-pycdc
+acropolyse.app\
+aperisolve\
+pycdc\
