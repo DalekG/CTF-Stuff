@@ -37,6 +37,8 @@ There are two files, the token and a python script\
 The token is owned by root so you cannot cat it, but login.py looks interesting\
 Cat login.py and see that there are hardcoded username and passwords\
 copy and paste those hashes into txt files on the user box\
+unzip rockyou.txt\
+`sudo gzip -d /usr/share/wordlists/rockyou.txt.gz`\
 run `sudo john un.txt/pw.txt --wordlist=/usr/share/wordlists/rockyou.txt --format=Raw-SHA256` (only one file at a time)\
 the hashes will be cracked relatively quick\
 go back to the bisonator box and run `su root`\
