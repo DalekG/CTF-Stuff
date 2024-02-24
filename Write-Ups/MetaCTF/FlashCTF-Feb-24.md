@@ -13,3 +13,10 @@ In the script, I noticed the line `// Redirect if login successful`\
 Looking a little further down I see the directory that the user will be redirected to `./employee_portal.php`\
 So I add that directory to the end of the URL to visit the page, and the flag is displayed.\
 ![Display Web 3](../Content/MetaCTF-Feb-Web3.png)
+
+## Reverse Engineer
+### Obfuscated Secrets
+![Display RE Chal](../Content/MetaCTF-Feb-ObfuscatedSecrets.png)\
+Start off by clicking the link `this Python script`\
+When it's downloaded open the script in the text editor of your choice.\
+Notice that there is a variable named `encrypted` that contains what I assumed is the encrypted flag.\
