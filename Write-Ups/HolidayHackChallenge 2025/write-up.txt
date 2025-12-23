@@ -1,0 +1,524 @@
+Holiday Hack Challenge
+
+Nmap:
+
+1. When run without any options, nmap performs a TCP scan of the top 1000 ports. Run a default nmap scan of 127.0.12.25 and see which ports are open.
+  $ nmap 127.0.12.25
+
+2. Sometimes the top 1000 ports are not enough. Run an nmap scan of all TCP ports on 127.0.12.25 and see which port is open.
+  $ nmap -p- 127.0.12.25
+
+3. Nmap can also scan a range of IP addresses. Scan the range 127.0.12.20 - 127.0.12.28 and see which has a port open.
+  $ nmap 127.0.12.20-28
+
+4. Nmap has a version detection engine, to help determine what services are running on a given port. What service is running on 127.0.12.25 TCP port 8080?
+  $ nmap -sV 127.0.12.25 -p 8080
+
+5. Sometimes you just want to interact with a port, which is a perfect job for Ncat! Use the ncat tool to connect to TCP port 24601 on 127.0.12.25 and view banner returned.
+  $ ncat 127.0.12.25 24601
+
+
+Storage Secrets:
+
+1. The Neighborhood HOA uses Azure storage accounts for various IT operations. You've been asked to audit their storage security configuration to ensure no sensitive data is publicly accessible.
+   Recent security reports suggest some storage accounts might have public blob access enabled, creating potential data exposure risk.
+
+2. Retrieve your Azure account credentials
+  $ az account show | less
+
+  {
+  "environmentName": "AzureCloud",
+  "id": "2b0942f3-9bca-484b-a508-abdae2db5e64",
+  "isDefault": true,
+  "name": "theneighborhood-sub",
+  "state": "Enabled",
+  "tenantId": "90a38eda-4006-4dd5-924c-6ca55cacc14d",
+  "user": {
+    "name": "theneighborhood@theneighborhood.invalid",
+    "type": "user"
+    }
+  }
+
+3. Take a look at some Azure storage accounts
+  $ az storage account list | less
+
+  [
+  {
+    "id": "/subscriptions/2b0942f3-9bca-484b-a508-abdae2db5e64/resourceGroups/theneighborhood-rg1/providers/Microsoft.Storage/storageAccoun
+ts/neighborhood1",
+    "kind": "StorageV2",
+    "location": "eastus",
+    "name": "neighborhood1",
+    "properties": {
+      "accessTier": "Hot",
+      "allowBlobPublicAccess": false,
+      "encryption": {
+        "keySource": "Microsoft.Storage",
+        "services": {
+          "blob": {
+            "enabled": true
+          }
+        }
+      },
+      "minimumTlsVersion": "TLS1_2"
+    },
+    "resourceGroup": "theneighborhood-rg1",
+    "sku": {
+      "name": "Standard_LRS"
+    },
+    "tags": {
+      "env": "dev"
+    }
+  },
+  {
+    "id": "/subscriptions/2b0942f3-9bca-484b-a508-abdae2db5e64/resourceGroups/theneighborhood-rg1/providers/Microsoft.Storage/storageAccoun
+ts/neighborhood2",
+    "kind": "StorageV2",
+    "location": "eastus2",
+    "name": "neighborhood2",
+    "properties": {
+      "accessTier": "Cool",
+      "allowBlobPublicAccess": true,
+      "encryption": {
+        "keySource": "Microsoft.Storage",
+        "services": {
+          "blob": {
+            "enabled": false
+          }
+        }
+      },
+      "minimumTlsVersion": "TLS1_0"
+    },
+    "resourceGroup": "theneighborhood-rg1",
+    "sku": {
+      "name": "Standard_GRS"
+    },
+    "tags": {
+      "owner": "Admin"
+    }
+  },
+  {
+    "id": "/subscriptions/2b0942f3-9bca-484b-a508-abdae2db5e64/resourceGroups/theneighborhood-rg2/providers/Microsoft.Storage/storageAccoun
+ts/neighborhood3",
+    "kind": "BlobStorage",
+    "location": "westus",
+    "name": "neighborhood3",
+    "properties": {
+      "accessTier": "Hot",
+      "allowBlobPublicAccess": false,
+      "encryption": {
+        "keySource": "Microsoft.Keyvault",
+        "services": {
+          "blob": {
+            "enabled": true
+          }
+        }
+      },
+      "minimumTlsVersion": "TLS1_2"
+    },
+    "resourceGroup": "theneighborhood-rg2",
+    "sku": {
+      "name": "Standard_RAGRS"
+    },
+    "tags": {
+      "department": "NeighborhoodWatch"
+    }
+  },
+  {
+    "id": "/subscriptions/2b0942f3-9bca-484b-a508-abdae2db5e64/resourceGroups/theneighborhood-rg2/providers/Microsoft.Storage/storageAccoun
+ts/neighborhood4",
+    "kind": "StorageV2",
+    "location": "westus2",
+    "name": "neighborhood4",
+    "properties": {
+      "accessTier": "Hot",
+      "allowBlobPublicAccess": false,
+      "minimumTlsVersion": "TLS1_2",
+      "networkAcls": {
+        "bypass": "AzureServices",
+        "virtualNetworkRules": []
+      }
+    },
+    "resourceGroup": "theneighborhood-rg2",
+    "sku": {
+      "name": "Premium_LRS"
+    },
+    "tags": {
+      "critical": "true"
+    }
+  },
+  {
+    "id": "/subscriptions/2b0942f3-9bca-484b-a508-abdae2db5e64/resourceGroups/theneighborhood-rg1/providers/Microsoft.Storage/storageAccoun
+ts/neighborhood5",
+    "kind": "StorageV2",
+    "location": "eastus",
+    "name": "neighborhood5",
+    "properties": {
+      "accessTier": "Cool",
+      "allowBlobPublicAccess": false,
+      "isHnsEnabled": true,
+      "minimumTlsVersion": "TLS1_2"
+    },
+    "resourceGroup": "theneighborhood-rg1",
+    "sku": {
+      "name": "Standard_LRS"
+    },
+    "tags": {
+      "project": "Homes"
+    }
+  },
+  {
+    "id": "/subscriptions/2b0942f3-9bca-484b-a508-abdae2db5e64/resourceGroups/theneighborhood-rg2/providers/Microsoft.Storage/storageAccoun
+ts/neighborhood6",
+    "kind": "StorageV2",
+    "location": "centralus",
+    "name": "neighborhood6",
+    "properties": {
+      "accessTier": "Hot",
+      "allowBlobPublicAccess": false,
+      "minimumTlsVersion": "TLS1_2",
+      "tags": {
+        "replicate": "true"
+      }
+    },
+    "resourceGroup": "theneighborhood-rg2",
+    "sku": {
+      "name": "Standard_ZRS"
+    },
+    "tags": {}
+  }
+]
+
+4. Try showing the account that has a misconfiguration: az storage account show --name xxxxxxx | less
+  We know we are looking for allowBlobPublicAccess since the Goose told us so before starting the challenge. Going through the storage accounts we can see that "neighborhood2" has allowBlobPublicAccess set to true.
+
+  $ az storage account show --name neighborhood2 | less
+
+  {
+  "id": "/subscriptions/2b0942f3-9bca-484b-a508-abdae2db5e64/resourceGroups/theneighborhood-rg1/providers/Microsoft.Storage/storageAccounts/neighborhood2",
+  "name": "neighborhood2",
+  "location": "eastus2",
+  "kind": "StorageV2",
+  "sku": {
+    "name": "Standard_GRS"
+  },
+  "properties": {
+    "accessTier": "Cool",
+    "allowBlobPublicAccess": true,
+    "minimumTlsVersion": "TLS1_0",
+    "encryption": {
+      "services": {
+        "blob": {
+          "enabled": false
+        }
+      },
+      "keySource": "Microsoft.Storage"
+    }
+  },
+  "resourceGroup": "theneighborhood-rg1",
+  "tags": {
+    "owner": "Admin"
+  }
+}
+
+5. Now we need to list containers in neighborhood2. After running the command, what's interesting in the list?
+   For more information:
+   https://learn.microsoft.com/en-us/cli/azure/storage/container?view=azure-cli-latest#az-storage-container-list
+
+  $ az storage container list --account-name neighborhood2
+
+  [
+  {
+    "name": "public",
+    "properties": {
+      "lastModified": "2024-01-15T09:00:00Z",
+      "publicAccess": "Blob"
+    }
+  },
+  {
+    "name": "private",
+    "properties": {
+      "lastModified": "2024-02-05T11:12:00Z",
+      "publicAccess": null
+      }
+    }
+  ]
+
+6. Let's look at the blob list in the public container for neighborhood2
+   For more information:
+   https://learn.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-list
+
+  $ az storage blob list --account-name neighborhood2 --container-name public
+
+  [
+  {
+    "name": "refrigerator_inventory.pdf",
+    "properties": {
+      "contentLength": 45678,
+      "contentType": "application/pdf",
+      "metadata": {
+        "created_by": "NeighborhoodWatch",
+        "document_type": "inventory",
+        "last_updated": "2024-12-15"
+      }
+    }
+  },
+  {
+    "name": "admin_credentials.txt",
+    "properties": {
+      "contentLength": 1024,
+      "contentType": "text/plain",
+      "metadata": {
+        "note": "admins only"
+      }
+    }
+  },
+  {
+    "name": "network_config.json",
+    "properties": {
+      "contentLength": 2048,
+      "contentType": "application/json",
+      "metadata": {
+        "encrypted": "false",
+        "environment": "prod"
+        }
+      }
+    }
+  ]
+
+7. Try downloading and viewing the blob file named admin_credentials.txt from the public container.
+   💡 hint: --file /dev/stdout should print in the terminal. Dont forget to use | less!
+
+   $ az storage blob download --account-name neighborhood2 --container-name public --name admin_credentials.txt --file /dev/stdout | less
+
+   # You have discovered an Azure Storage account with "allowBlobPublicAccess": true.
+   # This misconfiguration allows ANYONE on the internet to view and download files
+   # from the blob container without authentication.
+
+   # Public blob access is highly insecure when sensitive data (like admin credentials)
+   # is stored in these containers. Always disable public access unless absolutely required.
+
+   Azure Portal Credentials
+   User: azureadmin
+   Pass: AzUR3!P@ssw0rd#2025
+
+   Windows Server Credentials
+   User: administrator
+   Pass: W1nD0ws$Srv!@42
+
+   SQL Server Credentials
+   User: sa
+   Pass: SqL!P@55#2025$
+
+   Active Directory Domain Admin
+   User: corp\administrator
+   Pass: D0m@in#Adm!n$765
+
+   Exchange Admin Credentials
+   User: exchangeadmin
+   Pass: Exch@ng3!M@il#432
+
+   VMware vSphere Credentials
+   User: vsphereadmin
+   Pass: VMW@r3#Clu$ter!99
+
+   Network Switch Credentials
+   User: netadmin
+   Pass: N3t!Sw!tch$C0nfig#
+
+   Firewall Admin Credentials
+   User: fwadmin
+   Pass: F1r3W@ll#S3cur3!77
+
+   Backup Server Credentials
+   User: backupadmin
+   Pass: B@ckUp!Srv#2025$
+
+   Monitoring System Admin
+   User: monitoradmin
+   Pass: M0n!t0r#Sys$P@ss!
+
+   SharePoint Admin Credentials
+   User: spadmin
+   Pass: Sh@r3P0!nt#Adm!n2025
+
+   Git Server Admin
+   User: gitadmin
+   Pass: G1t#Srv!Rep0$C0de
+
+8. Challenge complete! To finish, type: finish
+  $ finish
+
+Spare Key
+Help Goose Barry near the pond identify which identity has been granted excessive Owner permissions at the subscription level, violating the principle of least privilege.
+
+1. The Neighborhood HOA hosts a static website on Azure Storage. An admin accidentally uploaded an infrastructure config file that contains a long-lived SAS token. Use Azure CLI to find the leak and report exactly where it lives.
+
+2. Let's start by listing all resource groups
+   $ az group list -o table
+   This will show all resource groups in a readable table format.
+
+   Name                 Location    ProvisioningState
+-------------------     ----------  -------------------
+rg-the-neighborhood     eastus      Succeeded
+rg-hoa-maintenance      eastus      Succeeded
+rg-hoa-clubhouse        eastus      Succeeded
+rg-hoa-security         eastus      Succeeded
+rg-hoa-landscaping      eastus      Succeeded
+
+3. Now let's find storage accounts in the neighborhood resource group 📦
+   $ az storage account list --resource-group rg-the-neighborhood -o table
+   This shows what storage accounts exist and their types.
+
+   Name             Kind         Location    ResourceGroup        ProvisioningState
+   ---------------  -----------  ----------  -------------------  -------------------
+   neighborhoodhoa  StorageV2    eastus      rg-the-neighborhood  Succeeded
+   hoamaintenance   StorageV2    eastus      rg-hoa-maintenance   Succeeded
+   hoaclubhouse     StorageV2    eastus      rg-hoa-clubhouse     Succeeded
+   hoasecurity      BlobStorage  eastus      rg-hoa-security      Succeeded
+   hoalandscaping   StorageV2    eastus      rg-hoa-landscaping   Succeeded
+
+4. Someone mentioned there was a website in here. Maybe a static website?
+   try:
+   $ az storage blob service-properties show --account-name <insert_account_name> --auth-mode login
+
+  $ az storage blob service-properties show --account-name neighborhoodhoa --auth-mode login
+
+  {
+  "enabled": true,
+  "errorDocument404Path": "404.html",
+  "indexDocument": "index.html"
+  }
+
+5. Let's see what 📦 containers exist in the storage account
+   💡 Hint: You will need to use az storage container list
+   We want to list the container and its public access levels.
+
+  $ az storage container list --account-name neighborhoodhoa
+
+  [
+  {
+    "name": "$web",
+    "properties": {
+      "lastModified": "2025-09-20T10:30:00Z",
+      "publicAccess": null
+    }
+  },
+  {
+    "name": "public",
+    "properties": {
+      "lastModified": "2025-09-15T14:20:00Z",
+      "publicAccess": "Blob"
+      }
+    }
+  ]
+
+6. Examine what files are in the static website container
+   💡 hint: when using --container-name you might need '<name>'
+   Look 👀 for any files that shouldn't be publicly accessible!
+
+  $ az storage blob list --account-name neighborhoodhoa --container-name '$web' --auth-mode login | less
+
+  [
+  {
+    "name": "index.html",
+    "properties": {
+      "contentLength": 512,
+      "contentType": "text/html",
+      "metadata": {
+        "source": "hoa-website"
+      }
+    }
+  },
+  {
+    "name": "about.html",
+    "properties": {
+      "contentLength": 384,
+      "contentType": "text/html",
+      "metadata": {
+        "source": "hoa-website"
+      }
+    }
+  },
+  {
+    "name": "iac/terraform.tfvars",
+    "properties": {
+      "contentLength": 1024,
+      "contentType": "text/plain",
+      "metadata": {
+        "WARNING": "LEAKED_SECRETS"
+        }
+      }
+    }
+  ]
+
+7. Take a look at the files here, what stands out?
+   Try examining a suspect file 🕵️:
+   💡 hint: --file /dev/stdout | less will print to your terminal 💻.
+
+   $ az storage blob download --account-name neighborhoodhoa --container-name '$web' --name iac/terraform.tfvars --file /dev/stdout --auth-mode login | less
+   # Terraform Variables for HOA Website Deployment
+   # Application: Neighborhood HOA Service Request Portal
+   # Environment: Production
+   # Last Updated: 2025-09-20
+   # DO NOT COMMIT TO PUBLIC REPOS
+
+   # === Application Configuration ===
+   app_name = "hoa-service-portal"
+   app_version = "2.1.4"
+   environment = "production"
+
+   # === Database Configuration ===
+   database_server = "sql-neighborhoodhoa.database.windows.net"
+   database_name = "hoa_requests"
+   database_username = "hoa_app_user"
+   # Using Key Vault reference for security
+   database_password_vault_ref = "@Microsoft.KeyVault(SecretUri=https://kv-neighborhoodhoa-prod.vault.azure.net/secrets/db-password/)"
+
+   # === Storage Configuration for File Uploads ===
+   storage_account = "neighborhoodhoa"
+   uploads_container = "resident-uploads"
+   documents_container = "hoa-documents"
+
+   # TEMPORARY: Direct storage access for migration script
+   # WARNING: Remove after data migration to new storage account
+   # This SAS token provides full access - HIGHLY SENSITIVE!
+   migration_sas_token = "sv=2023-11-03&ss=b&srt=co&sp=rlacwdx&se=2100-01-01T00:00:00Z&spr=https&sig=1djO1Q%2Bv0wIh7mYi3n%2F7r1d%2F9u9H%2F5%2BQxw8o2i9QMQc%3D"
+
+   # === Email Service Configuration ===
+   # Using Key Vault for sensitive email credentials
+   sendgrid_api_key_vault_ref = "@Microsoft.KeyVault(SecretUri=https://kv-neighborhoodhoa-prod.vault.azure.net/secrets/sendgrid-key/)"
+   from_email = "noreply@theneighborhood.com"
+   admin_email = "admin@theneighborhood.com"
+
+   # === Application Settings ===
+   session_timeout_minutes = 60
+   max_file_upload_mb = 10
+   allowed_file_types = ["pdf", "jpg", "jpeg", "png", "doc", "docx"]
+
+   # === Feature Flags ===
+   enable_online_payments = true
+   enable_maintenance_requests = true
+   enable_document_portal = false
+   enable_resident_directory = true
+
+   # === API Keys (Key Vault References) ===
+   maps_api_key_vault_ref = "@Microsoft.KeyVault(SecretUri=https://kv-neighborhoodhoa-prod.vault.azure.net/secrets/maps-api-key/)"
+   weather_api_key_vault_ref = "@Microsoft.KeyVault(SecretUri=https://kv-neighborhoodhoa-prod.vault.azure.net/secrets/weather-api-key/)"
+
+# === Notification Settings (Key Vault References) ===
+sms_service_vault_ref = "@Microsoft.KeyVault(SecretUri=https://kv-neighborhoodhoa-prod.vault.azure.net/secrets/sms-credentials/)"
+notification_webhook_vault_ref = "@Microsoft.KeyVault(SecretUri=https://kv-neighborhoodhoa-prod.vault.azure.net/secrets/slack-webhook/)"
+
+# === Deployment Configuration ===
+deploy_static_files_to_cdn = true
+cdn_profile = "hoa-cdn-prod"
+cache_duration_hours = 24
+
+# Backup schedule
+backup_frequency = "daily"
+backup_retention_days = 30
+{
+  "downloaded": true,
+  "file": "/dev/stdout"
+}
